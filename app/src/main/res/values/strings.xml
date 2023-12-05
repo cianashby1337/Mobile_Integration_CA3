@@ -65,6 +65,7 @@
     <string name="Contents22">Diuretic x1</string>
     <string name="Contents23">Muscle Relaxant x1</string>
     <string name="Contents24">Anti-anxiety Medication x1</string>
+    <string name="next">Next</string>
     <string name="Contents25">Eye Drops x1</string>
     <string name="Contents26">Fever Reducer x1</string>
     <string name="Contents27">Corticosteroid x1</string>
@@ -81,4 +82,7 @@
     <string name="Contents38">Antiviral Medication x1</string>
     <string name="Contents39">Hormone Replacement Therapy x1</string>
     <string name="Contents40">Immune Booster x1</string>
+    <string name="title">title</string>
+    <string name="settings">settings</string>
+    <string name="back_button">Back</string>
 </resources>
