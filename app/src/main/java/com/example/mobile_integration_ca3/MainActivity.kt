@@ -1,6 +1,8 @@
 package com.example.mobile_integration_ca3
 
-import Datasource
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import com.example.mobile_integration_ca3.data.allDoses
 import android.os.Bundle
 import androidx.compose.foundation.layout.Spacer
 import android.util.Log
@@ -43,8 +45,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.dimensionResource
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.NavHost
+import com.example.mobile_integration_ca3.ui.AppViewModel
 
+
+enum class AppScreen() {
+    Home,
+    Settings
+}
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,20 +65,20 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun DosesApp() {
-    var isDarkTheme by remember { mutableStateOf(true)}
-    Mobile_Integration_CA3Theme (darkTheme = isDarkTheme) {
+fun DosesApp(appViewModel: AppViewModel = viewModel()) {
+    val gameUiState by appViewModel.uiState.collectAsState()
+    Mobile_Integration_CA3Theme (darkTheme = gameUiState.isDark) {
         // A surface container using the 'background' color from the theme
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
             Column {
-                Button(onClick = { isDarkTheme = !isDarkTheme }) {
-                    Text(text = if (isDarkTheme) "Change to Light Mode" else "Change to Dark Mode")
+                Button(onClick = { appViewModel.updateIsDark() }) {
+                    Text(text = if (gameUiState.isDark) "Change to Light Mode" else "Change to Dark Mode")
                 }
                 DoseList(
-                    doseList = Datasource().loadDoses(),
+                    doseList = allDoses,
                 )
 
             }
@@ -102,8 +113,8 @@ fun DoseCard(dose: Dose, modifier: Modifier = Modifier) {
                 Spacer(modifier = Modifier.weight(1f))
                 DoseCardButton(
                     expanded = expanded,
-                    onClick = { expanded = !expanded  }
-
+                    onClick = { expanded = !expanded  },
+                    modifier = Modifier.padding(8.dp)
                 )
             }
             if (expanded) {

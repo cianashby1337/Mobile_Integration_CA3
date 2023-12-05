@@ -1,9 +1,11 @@
+package com.example.mobile_integration_ca3.data
+
 import com.example.mobile_integration_ca3.R
 import com.example.mobile_integration_ca3.model.Dose
 
-class Datasource() {
-    fun loadDoses(): List<Dose> {
-        return listOf<Dose>(
+
+val allDoses: List<Dose> =
+        listOf<Dose>(
             Dose(R.string.Dose1, R.string.Contents1),
             Dose(R.string.Dose2, R.string.Contents2),
             Dose(R.string.Dose3, R.string.Contents3),
@@ -44,5 +46,3 @@ class Datasource() {
             Dose(R.string.Dose38, R.string.Contents38),
             Dose(R.string.Dose39, R.string.Contents39),
             Dose(R.string.Dose40, R.string.Contents40))
-    }
-}
