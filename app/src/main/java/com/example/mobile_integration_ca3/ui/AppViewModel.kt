@@ -12,7 +12,7 @@ class AppViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(AppUiState())
     val uiState: StateFlow<AppUiState> = _uiState.asStateFlow()
 
-    var isDark by mutableStateOf(true)
+    var isDark = true
 
     fun updateIsDark(){
         _uiState.value = AppUiState(isDark = isDark)
