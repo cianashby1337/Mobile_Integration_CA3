@@ -1,5 +1,6 @@
 package com.example.mobile_integration_ca3
 
+import android.os.Build
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.example.mobile_integration_ca3.data.allDoses
@@ -9,6 +10,7 @@ import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresExtension
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.animation.core.Spring
@@ -21,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mobile_integration_ca3.ui.theme.Mobile_Integration_CA3Theme
-import com.example.mobile_integration_ca3.model.Dose
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -47,6 +48,7 @@ import com.example.mobile_integration_ca3.ui.AppViewModel
 
 
 class MainActivity : ComponentActivity() {
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

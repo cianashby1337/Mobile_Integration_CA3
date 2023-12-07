@@ -2,6 +2,8 @@ package com.example.mobile_integration_ca3
 import androidx.navigation.compose.NavHost
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -68,6 +70,7 @@ fun TrueAppBar(
     )
 }
 
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrueApp(
@@ -80,7 +83,7 @@ fun TrueApp(
     val currentScreen = AppScreen.valueOf(
         backStackEntry?.destination?.route ?: AppScreen.Home.name
     )
-    val uiState by viewModel.uiState.collectAsState()
+        val uiState by viewModel.uiState.collectAsState()
 
         Scaffold(
             topBar = {

@@ -37,7 +37,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mobile_integration_ca3.R
 import com.example.mobile_integration_ca3.data.allDoses
-import com.example.mobile_integration_ca3.model.Dose
 import com.example.mobile_integration_ca3.ui.theme.Mobile_Integration_CA3Theme
 
 @Composable
@@ -72,8 +71,9 @@ fun HomeScreen(
     Log.d("DosesApp","DosesApp successfully loaded")
 }
 
+
 @Composable
-fun DoseCard(dose: Dose, modifier: Modifier = Modifier) {
+fun DoseCard(dose: String, modifier: Modifier = Modifier) {
     var expanded by remember { mutableStateOf(false) }
     Card(modifier = modifier) {
         Column(
@@ -90,7 +90,7 @@ fun DoseCard(dose: Dose, modifier: Modifier = Modifier) {
                     .padding(3.dp)
             ) {
                 Text(
-                    text = LocalContext.current.getString(dose.datetime),
+                    text = "Help",
                     modifier = Modifier.padding(16.dp),
                     style = MaterialTheme.typography.headlineSmall
                 )
@@ -103,7 +103,7 @@ fun DoseCard(dose: Dose, modifier: Modifier = Modifier) {
             }
             if (expanded) {
                 DoseContents(
-                    dose.contents,
+                    "password",
                     modifier = Modifier.padding(
                         start = 5.dp,
                         top = 3.dp,
@@ -114,7 +114,7 @@ fun DoseCard(dose: Dose, modifier: Modifier = Modifier) {
             }
         }
     }
-    Log.d("DoseCard","DoseCard successfully loaded with the string:" + LocalContext.current.getString(dose.datetime))
+    Log.d("DoseCard","DoseCard successfully loaded with the string:" + "bla")
     // Looking at Logcat, we observe that two list items above/below the currently
     // visible list items are loaded. This is the result of using a LazyColumn, which
     // renders a more narrow range of items that need to be visible. Performance benefit
@@ -140,7 +140,7 @@ private fun DoseCardButton(
 
 @Composable
 fun DoseContents(
-    @StringRes contents: Int,
+    contents: String,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -151,7 +151,7 @@ fun DoseContents(
             style = MaterialTheme.typography.labelSmall
         )
         Text(
-            text = stringResource(contents),
+            text = contents,
             style = MaterialTheme.typography.bodyLarge
         )
     }
@@ -161,12 +161,12 @@ fun DoseContents(
 @Composable
 private fun DoseCardPreview() {
     Mobile_Integration_CA3Theme(darkTheme = true) {
-        DoseCard(Dose(R.string.Dose1, R.string.Contents1))
+        DoseCard(dose = "bla")
     }
 }
 
 @Composable
-fun DoseList(doseList: List<Dose>, modifier: Modifier = Modifier) {
+fun DoseList(doseList: List<String>, modifier: Modifier = Modifier) {
 
     LazyColumn(modifier = modifier) {
         items(doseList) { dose ->
@@ -177,3 +177,4 @@ fun DoseList(doseList: List<Dose>, modifier: Modifier = Modifier) {
         }
     }
 }
+

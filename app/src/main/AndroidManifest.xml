@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--CleartextTraffic="true" solution for HTTP request to my local server was gotten from the answer given by "Quick Learner" in this Stack
+Overflow link: https://stackoverflow.com/questions/63032000/java-net-unknownserviceexception-cleartext-communication-to-t-main-wedeep-com-c-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" >
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mobile_Integration_CA3"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31" >
         <activity
             android:name=".MainActivity"
