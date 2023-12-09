@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mobile_integration_ca3.R
 import com.example.mobile_integration_ca3.data.allDoses
+import com.example.mobile_integration_ca3.model.ConvertedDose
 import com.example.mobile_integration_ca3.ui.theme.Mobile_Integration_CA3Theme
 
 @Composable
@@ -62,7 +63,7 @@ fun HomeScreen(
                 }
             }
             DoseList(
-                doseList = allDoses,
+                doseList = appUiState.doseList,
             )
 
         }
@@ -73,7 +74,7 @@ fun HomeScreen(
 
 
 @Composable
-fun DoseCard(dose: String, modifier: Modifier = Modifier) {
+fun DoseCard(dose: ConvertedDose, modifier: Modifier = Modifier) {
     var expanded by remember { mutableStateOf(false) }
     Card(modifier = modifier) {
         Column(
@@ -90,7 +91,7 @@ fun DoseCard(dose: String, modifier: Modifier = Modifier) {
                     .padding(3.dp)
             ) {
                 Text(
-                    text = "Help",
+                    text = dose.date,
                     modifier = Modifier.padding(16.dp),
                     style = MaterialTheme.typography.headlineSmall
                 )
@@ -103,7 +104,7 @@ fun DoseCard(dose: String, modifier: Modifier = Modifier) {
             }
             if (expanded) {
                 DoseContents(
-                    "password",
+                    dose.scheduledMedications,
                     modifier = Modifier.padding(
                         start = 5.dp,
                         top = 3.dp,
@@ -140,7 +141,7 @@ private fun DoseCardButton(
 
 @Composable
 fun DoseContents(
-    contents: String,
+    contents: List<String>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -150,23 +151,17 @@ fun DoseContents(
             text = "Contents:",
             style = MaterialTheme.typography.labelSmall
         )
-        Text(
-            text = contents,
-            style = MaterialTheme.typography.bodyLarge
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun DoseCardPreview() {
-    Mobile_Integration_CA3Theme(darkTheme = true) {
-        DoseCard(dose = "bla")
+        for (med in contents) {
+            Text(
+                text = med,
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
     }
 }
 
 @Composable
-fun DoseList(doseList: List<String>, modifier: Modifier = Modifier) {
+fun DoseList(doseList: List<ConvertedDose>, modifier: Modifier = Modifier) {
 
     LazyColumn(modifier = modifier) {
         items(doseList) { dose ->

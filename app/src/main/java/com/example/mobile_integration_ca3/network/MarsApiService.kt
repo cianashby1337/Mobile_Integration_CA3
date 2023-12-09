@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.http.GET
 
 private const val BASE_URL =
-    "http://192.168.0.101:4000/"
+    "http://192.168.0.103:4000/"
 
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))

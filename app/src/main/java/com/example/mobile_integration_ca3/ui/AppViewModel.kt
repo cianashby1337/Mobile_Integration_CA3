@@ -9,6 +9,7 @@ import androidx.compose.runtime.setValue
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mobile_integration_ca3.model.ConvertedDose
 import com.example.mobile_integration_ca3.model.Response
 import com.example.mobile_integration_ca3.network.MarsApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +26,8 @@ class AppViewModel : ViewModel() {
     val uiState: StateFlow<AppUiState> = _uiState.asStateFlow()
 
     var isDark = false
-    var doseList = emptyList<String>()
+    var list = mutableListOf<ConvertedDose>()
+
 
     init {
         getMarsPhotos()
@@ -36,10 +38,29 @@ class AppViewModel : ViewModel() {
         isDark = !isDark
     }
 
+
+
     private fun getMarsPhotos() {
         viewModelScope.launch {
-            val bla = MarsApi.retrofitService.getPhotos()
-            Log.d("result",bla.data[0].toString())
+            val response = MarsApi.retrofitService.getPhotos()
+            var user = response.data[0]
+            var schedules = user.schedule
+            var medications = user.medications
+            if (schedules != null && medications != null ) {
+                for(schedule in schedules) {
+                    var datetimestring = schedule.datetime
+                    var datestring = datetimestring.subSequence(5,10).toString()
+                    var timestring = datetimestring.subSequence(11, datetimestring.length-4).toString()
+                    var e = ConvertedDose( "Date: " + datestring + " Time: " + timestring)
+                    for(scheduledMedication in schedule.medications) {
+                        for(medication in medications) {
+                            if (scheduledMedication == medication.id) e.scheduledMedications.add(medication.name)
+                        }
+                    }
+                    list.add(e)
+                }
+            }
+            _uiState.value = AppUiState(doseList = list)
         }
     }
 }

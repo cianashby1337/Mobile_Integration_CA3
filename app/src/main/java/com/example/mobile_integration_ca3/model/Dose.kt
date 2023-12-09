@@ -10,6 +10,10 @@ import org.json.JSONObject
 import java.util.Date
 import kotlin.jvm.Transient
 
+data class ConvertedDose(val date:String) {
+    var scheduledMedications = mutableListOf<String>()
+}
+
 @Serializable
 data class Response(
     @SerialName(value = "status")
@@ -17,7 +21,7 @@ data class Response(
     @SerialName(value = "message")
     val password: String,
     @SerialName(value = "data")
-    val data : List<User> //oh boy ya better be looking forward to this shit
+    val data : List<User>
 )
 
 @Serializable

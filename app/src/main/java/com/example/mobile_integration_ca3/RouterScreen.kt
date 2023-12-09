@@ -84,6 +84,7 @@ fun TrueApp(
         backStackEntry?.destination?.route ?: AppScreen.Home.name
     )
         val uiState by viewModel.uiState.collectAsState()
+        Mobile_Integration_CA3Theme (darkTheme = uiState.isDark) {
 
         Scaffold(
             topBar = {
@@ -94,7 +95,6 @@ fun TrueApp(
                 )
             }
         ) { innerPadding ->
-            Mobile_Integration_CA3Theme (darkTheme = uiState.isDark) {
 
             NavHost(
                 navController = navController,
