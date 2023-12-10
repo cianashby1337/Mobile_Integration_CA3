@@ -1,14 +1,7 @@
 package com.example.mobile_integration_ca3.model
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.*
-import kotlinx.serialization.json.Json
-import org.json.JSONArray
-import org.json.JSONObject
-import java.util.Date
-import kotlin.jvm.Transient
 
 data class ConvertedDose(val date:String) {
     var scheduledMedications = mutableListOf<String>()

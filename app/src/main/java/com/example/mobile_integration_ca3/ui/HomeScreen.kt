@@ -1,7 +1,6 @@
 package com.example.mobile_integration_ca3.ui
 
 import android.util.Log
-import androidx.annotation.StringRes
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -30,25 +29,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.mobile_integration_ca3.R
-import com.example.mobile_integration_ca3.data.allDoses
 import com.example.mobile_integration_ca3.model.ConvertedDose
-import com.example.mobile_integration_ca3.ui.theme.Mobile_Integration_CA3Theme
 
 @Composable
 fun HomeScreen(
     appViewModel: AppViewModel = viewModel(),
-    onNextButtonClicked: () -> Unit,
-    modifier: Modifier,
-    darkTheme: Boolean
+    onNextButtonClicked: () -> Unit
 ) {
     val appUiState by appViewModel.uiState.collectAsState()
-    // A surface container using the 'background' color from the theme
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -69,9 +59,8 @@ fun HomeScreen(
         }
     }
 
-    Log.d("DosesApp","DosesApp successfully loaded")
+    Log.d("HomeScreen","HomeScreen has successfully loaded")
 }
-
 
 @Composable
 fun DoseCard(dose: ConvertedDose, modifier: Modifier = Modifier) {
@@ -115,10 +104,7 @@ fun DoseCard(dose: ConvertedDose, modifier: Modifier = Modifier) {
             }
         }
     }
-    Log.d("DoseCard","DoseCard successfully loaded with the string:" + "bla")
-    // Looking at Logcat, we observe that two list items above/below the currently
-    // visible list items are loaded. This is the result of using a LazyColumn, which
-    // renders a more narrow range of items that need to be visible. Performance benefit
+    Log.d("HomeScreen","DoseCard successfully loaded with the datetime:" + dose.date)
 }
 
 @Composable
@@ -133,7 +119,7 @@ private fun DoseCardButton(
     ) {
         Icon(
             imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-            contentDescription = stringResource(R.string.expand_button_content_description),
+            contentDescription = "Expand Me",
             tint = MaterialTheme.colorScheme.secondary
         )
     }
@@ -162,7 +148,6 @@ fun DoseContents(
 
 @Composable
 fun DoseList(doseList: List<ConvertedDose>, modifier: Modifier = Modifier) {
-
     LazyColumn(modifier = modifier) {
         items(doseList) { dose ->
             DoseCard(
@@ -171,5 +156,5 @@ fun DoseList(doseList: List<ConvertedDose>, modifier: Modifier = Modifier) {
             )
         }
     }
+    Log.d("HomeScreen", "DoseList has loaded successfully")
 }
-
